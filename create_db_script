@@ -1,0 +1,52 @@
+
+
+SELECT sum(Duration_sec),sum(duration_min),Incoming_trunk_ID,Outgoing_trunk_ID,Called_Number,Caller_Number,Smonth,Syear,Shr,Prefix,Country,Dest FROM cdr_sonuscdr GROUP BY Incoming_trunk_ID,Outgoing_trunk_ID,Called_Number,Caller_Number,Smonth,Syear,Shr,Prefix,Country,Dest
+
+
+
+SELECT Incoming_trunk_ID,Outgoing_trunk_ID,Smonth,Sday,Syear,Shr,Prefix,Country,Dest,sum(Duration_min),count(*) FROM cdr_20131101 WHERE Duration_min > 0 GROUP BY Incoming_trunk_ID,Outgoing_trunk_ID,Smonth,Sday,Syear,Shr,Prefix,Country,Dest ORDER BY id
+
+
+SELECT A.Incoming_trunk_ID,A.Outgoing_trunk_ID,A.Smonth,A.Sday,A.Syear,A.Shr,A.Prefix,A.Country,A.Dest,A.dur,A.conn,B.allcall	FROM	((SELECT	Incoming_trunk_ID,Outgoing_trunk_ID,Smonth,Sday,Syear,Shr,Prefix,Country,Dest,sum(Duration_min) AS dur,count(*) AS conn	FROM cdr_20131101 WHERE Duration_min > 0 GROUP BY Incoming_trunk_ID,Outgoing_trunk_ID,Smonth,Sday,Syear,Shr,Prefix,Country,Dest	ORDER BY id) A LEFT JOIN (SELECT	Incoming_trunk_ID,Outgoing_trunk_ID,Smonth,Sday,Syear,Shr,Prefix,Country,Dest,sum(Duration_min),count(*) AS allcall	FROM cdr_20131101	GROUP BY Incoming_trunk_ID,Outgoing_trunk_ID,Smonth,Sday,Syear,Shr,Prefix,Country,Dest ORDER BY id) B ON (A.Incoming_trunk_ID=B.Incoming_trunk_ID AND A.Outgoing_trunk_ID = B.Outgoing_trunk_ID	AND A.Smonth = B. Smonth AND A.Sday = B.Sday AND A.Syear = B.Syear AND A.Shr = B.Shr AND A.Prefix = B.Prefix AND A.Country=B.Country AND A.Dest = B.Dest))
+
+
+
+
+
+SELECT A.Incoming_trunk_ID,A.Outgoing_trunk_ID,
+					A.Smonth,A.Sday,A.Syear,A.Shr,A.Prefix,A.Country,
+					A.Dest,A.dur,A.conn,B.allcall
+FROM 
+(
+	(SELECT	Incoming_trunk_ID,Outgoing_trunk_ID,
+						Smonth,Sday,Syear,Shr,Prefix,Country,
+						Dest,sum(Duration_min) AS dur,count(*) AS conn
+		FROM cdr_20131030
+	        WHERE Duration_min > 0
+		GROUP BY
+			Incoming_trunk_ID,Outgoing_trunk_ID,
+			Smonth,Sday,Syear,Shr,Prefix,Country,
+			Dest
+		ORDER BY id) A
+	LEFT JOIN
+	(SELECT	Incoming_trunk_ID,Outgoing_trunk_ID,
+						Smonth,Sday,Syear,Shr,Prefix,Country,
+						Dest,sum(Duration_min),count(*) AS allcall
+		FROM cdr_20131030
+		GROUP BY
+			Incoming_trunk_ID,Outgoing_trunk_ID,
+			Smonth,Sday,Syear,Shr,Prefix,Country,
+			Dest
+		ORDER BY id) B
+	ON 
+		(A.Incoming_trunk_ID=B.Incoming_trunk_ID
+			AND A.Outgoing_trunk_ID = B.Outgoing_trunk_ID
+			AND A.Smonth = B. Smonth AND A.Sday = B.Sday
+			AND A.Syear = B.Syear AND A.Shr = B.Shr
+			AND A.Prefix = B.Prefix AND A.Country=B.Country
+			AND A.Dest = B.Dest)
+)
+		
+		
+		
+		
