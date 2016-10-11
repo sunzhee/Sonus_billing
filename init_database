@@ -1,0 +1,78 @@
+show databases;
+use database gti;
+show tables
+drop table cdr_raw
+desc cdr_raw;
+
+####################################################################
+
+CREATE TABLE CDR_____(
+
+	ID bigint not null	primary key auto_increment,
+	call_type varchar(15),
+	Incoming_trunk_ID varchar(255),
+	Outgoing_trunk_ID varchar(255),
+	Country_Code varchar(255),
+	Country_Name varchar(255),
+	Area_Code varchar(255),
+	Area_Name varchar(255),
+	In_carrier_Name varchar(255),
+	Out_carrier_Name varchar(255),
+	Source_IP varchar(255),
+	Destination_IP varchar(255),
+	Startdate varchar(255),
+	Starttime varchar(255),
+	Enddate varchar(255),
+	Endtime varchar(255),
+	Connect_Time varchar(255),
+	Called_Number varchar(255),
+	Caller_Number varchar(255),
+	Duration_sec float(18,2),
+	Duration_min float(18,3),
+	Disconnect_Code varchar(255),
+	Disconnect_Party varchar(255),
+	Smonth varchar(255),
+	Sday varchar(255),
+	Syear varchar(255),
+	Shr varchar(255),
+	Prefix varchar(255),
+	Country varchar(255),
+	Dest varchar(255)
+)
+
+####################################################################
+
+
+CREATE TABLE AZ_tbl_overall(
+
+	ID bigint not null	primary key auto_increment,
+	Country varchar(255),
+	Destination varchar(255),
+	Prefix varchar(63)
+)
+
+
+
+####################################################################
+
+
+CREATE TABLE All_Summary(
+
+	ID bigint not null	primary key auto_increment,
+	Fcarrier varchar(255),
+	Tcarrier varchar(255),
+	Smonth varchar(255),
+	Sday varchar(255),
+	Syear varchar(255),
+	Shr varchar(255),
+	Prefix varchar(255),
+	Country varchar(255),
+	Dest varchar(255),
+	Dur int,
+	Concall int,
+	Unconcall int
+)
+
+
+####################################################################
+
