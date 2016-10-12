@@ -1,2 +1,3 @@
 # Sonus_billing
-billing system for sonus, cdr analyze
+# Billing system for sonus, cdr analyze
+# pyton and MySQL
